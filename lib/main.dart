@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
 class AuthWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final user = context.watch<User>();
+    final user = context.watch<User?>();
 
     if (user != null) {
       return LoginScreen();

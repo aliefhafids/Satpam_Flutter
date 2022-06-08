@@ -52,10 +52,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 obscureText: true,
               ),
             ),
+            const SizedBox(height: 20),
             Container(
               height: 40,
               width: MediaQuery.of(context).size.width / 3,
-              color: Colors.blue,
+              color: Color.fromARGB(255, 102, 151, 191),
               child: FlatButton(
                 onPressed: () {
                   final String email = emailController.text.trim();
@@ -81,10 +82,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
+            const SizedBox(height: 5),
             Container(
               height: 40,
               width: MediaQuery.of(context).size.width / 3,
-              color: Colors.red,
+              color: Color.fromARGB(255, 198, 234, 234),
               child: FlatButton(
                 onPressed: () {
                   final String email = emailController.text.trim();
