@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sign_flutter/ui/screens/main_screen.dart';
 
+import 'ui/screens/home_screen.dart';
 import 'ui/services/auth_services.dart';
 
 void main() async {
@@ -28,7 +29,12 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: "KOMPLEK APP",
+        theme: ThemeData(
+          appBarTheme: AppBarTheme(
+              backgroundColor: Colors.white, foregroundColor: Colors.black),
+        ),
         home: AuthWrapper(),
       ),
     );
@@ -41,7 +47,7 @@ class AuthWrapper extends StatelessWidget {
     final user = context.watch<User?>();
 
     if (user != null) {
-      return LoginScreen();
+      return HomeScreen();
     }
     return LoginScreen();
   }
