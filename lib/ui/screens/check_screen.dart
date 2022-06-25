@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sign_flutter/ui/screens/splash_screen.dart';
 
 import 'home_screen.dart';
@@ -45,88 +46,97 @@ class _CheckScreenState extends State<CheckScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: buildWidgets
-            ? Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () async {
-                      User? user = FirebaseAuth.instance.currentUser;
-
-                      await FirebaseFirestore.instance
-                          .collection("users")
-                          .doc(user?.uid)
-                          .set({
-                        'checkin': Timestamp.now(),
-                      });
-                    },
-                    child: Container(
-                      height: 60,
-                      width: 120,
-                      color: Color(0xFF6697BF),
-                      child: const Center(
-                        child: Text(
-                          "Check In",
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  GestureDetector(
-                    onTap: () async {
-                      User? user = FirebaseAuth.instance.currentUser;
-
-                      await FirebaseFirestore.instance
-                          .collection("users")
-                          .doc(user?.uid)
-                          .set({
-                        'checkout': Timestamp.now(),
-                      });
-                    },
-                    child: Container(
-                      height: 60,
-                      width: 120,
-                      color: Color(0xFF6697BF),
-                      child: const Center(
-                        child: Text(
-                          "Check Out",
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  GestureDetector(
-                    onTap: ()  {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => const SplashScreen()),
-                      );
-                    },
-                    child: Container(
-                      height: 60,
-                      width: 120,
-                      color: Color(0xFF6697BF),
-                      child: const Center(
-                        child: Text(
-                          "Location",
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              )
-            : const SizedBox(),
+      appBar: AppBar(
+        centerTitle: true,
+        elevation: 0.0,
+        title: Text(
+          'Komplek App',
+          style:
+              GoogleFonts.montserrat(fontWeight: FontWeight.bold, fontSize: 20),
+        ),
       ),
+      body: Center(
+          child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            height: 350,
+            width: 350,
+            decoration: new BoxDecoration(
+              color: Colors.white,
+              image: DecorationImage(
+                image: new AssetImage('assets/img/check.png'),
+                fit: BoxFit.fill,
+              ),
+              borderRadius: BorderRadius.circular(50.0),
+            ),
+          ),
+          SizedBox(
+            height: 50,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              GestureDetector(
+                onTap: () async {
+                  User? user = FirebaseAuth.instance.currentUser;
+
+                  await FirebaseFirestore.instance
+                      .collection("users")
+                      .doc(user?.uid)
+                      .set({
+                    'checkin': Timestamp.now(),
+                  });
+                },
+                child: Container(
+                  height: 60,
+                  width: 120,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40.0),
+                    color: Color(0xFF6697BF),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      "Check In",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () async {
+                  User? user = FirebaseAuth.instance.currentUser;
+
+                  await FirebaseFirestore.instance
+                      .collection("users")
+                      .doc(user?.uid)
+                      .set({
+                    'checkout': Timestamp.now(),
+                  });
+                },
+                child: Container(
+                  height: 60,
+                  width: 120,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40.0),
+                    color: Color(0xFF6697BF),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      "Check Out",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      )),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:sign_flutter/ui/screens/location_screen.dart';
@@ -28,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
     LocationData _locData;
 
     _serviceEnabled = await location.serviceEnabled();
-    if(!_serviceEnabled) {
+    if (!_serviceEnabled) {
       _serviceEnabled = await location.requestService();
       if (!_serviceEnabled) {
         return;
@@ -36,9 +37,9 @@ class _SplashScreenState extends State<SplashScreen> {
     }
 
     _permissionLocation = await location.hasPermission();
-    if(_permissionLocation == PermissionStatus.denied) {
+    if (_permissionLocation == PermissionStatus.denied) {
       _permissionLocation = await location.requestPermission();
-      if(_permissionLocation != PermissionStatus.granted) {
+      if (_permissionLocation != PermissionStatus.granted) {
         return;
       }
     }
@@ -50,18 +51,19 @@ class _SplashScreenState extends State<SplashScreen> {
       SatpamLocation.long = _locData.longitude!;
     });
 
-    Timer(Duration(milliseconds: 500), () {
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => LocationScreen()));
+    Timer(Duration(milliseconds: 1500), () {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => LocationScreen()));
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text("Location"),
-      ),
+    return AnimatedSplashScreen(
+      splash: Icons.location_on,
+      nextScreen: LocationScreen(),
+      splashTransition: SplashTransition.fadeTransition,
+      backgroundColor: Color(0xFF6697BF),
     );
   }
 }

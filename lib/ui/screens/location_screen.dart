@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import '../services/location_services.dart';
 
 class LocationScreen extends StatefulWidget {
@@ -10,8 +12,6 @@ class LocationScreen extends StatefulWidget {
 }
 
 class _LocationScreenState extends State<LocationScreen> {
-  String country = '';
-  String name = '';
   String street = '';
   String postalCode = '';
 
@@ -26,14 +26,10 @@ class _LocationScreenState extends State<LocationScreen> {
     List<Placemark> placemark =
         await placemarkFromCoordinates(SatpamLocation.lat, SatpamLocation.long);
 
-    print(placemark[0].country);
-    print(placemark[0].name);
     print(placemark[0].street);
     print(placemark[0].postalCode);
 
     setState(() {
-      country = placemark[0].country!;
-      name = placemark[0].name!;
       street = placemark[0].street!;
       postalCode = placemark[0].postalCode!;
     });
@@ -42,16 +38,42 @@ class _LocationScreenState extends State<LocationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        elevation: 0.0,
+        title: Text(
+          'Komplek App',
+          style:
+              GoogleFonts.montserrat(fontWeight: FontWeight.bold, fontSize: 20),
+        ),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Lat : " + "${SatpamLocation.lat}"),
-            Text("Long : " + "${SatpamLocation.long}"),
-            Text("Country : " + "$country"),
-            Text("Name : " + "$name"),
-            Text("Street : " + "$street"),
-            Text("PostalCode : " + "$postalCode"),
+            Lottie.network(
+                'https://assets10.lottiefiles.com/private_files/lf30_7tjsbbp7.json'),
+            SizedBox(
+              height: 30,
+            ),
+            Text(
+              "Lat : " + "${SatpamLocation.lat}",
+              style: GoogleFonts.montserrat(fontSize: 12),
+            ),
+            Text(
+              "Long : " + "${SatpamLocation.long}",
+              style: GoogleFonts.montserrat(fontSize: 12),
+            ),
+            Text(
+              "Street : " + "$street",
+              style: GoogleFonts.montserrat(
+                  fontWeight: FontWeight.bold, fontSize: 14),
+            ),
+            Text(
+              "PostalCode : " + "$postalCode",
+              style: GoogleFonts.montserrat(
+                  fontWeight: FontWeight.bold, fontSize: 14),
+            ),
           ],
         ),
       ),

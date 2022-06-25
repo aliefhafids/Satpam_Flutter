@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sign_flutter/ui/screens/check_screen.dart';
+import 'package:sign_flutter/ui/screens/splash_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -47,23 +48,72 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       body: Center(
-        child: GestureDetector(
-          onTap: () {
-            scanQR();
-          },
-          child: Container(
-            height: 60,
-            width: 120,
-            color: Color(0xFF6697BF),
-            child: const Center(
-              child: Text(
-                "SCAN QRCODE",
-                style: TextStyle(
-                  color: Colors.white,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new Container(
+              height: 350,
+              width: 350,
+              decoration: new BoxDecoration(
+                color: Colors.white,
+                image: DecorationImage(
+                  image: new AssetImage('assets/img/home.png'),
+                  fit: BoxFit.fill,
+                ),
+                borderRadius: BorderRadius.circular(50.0),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            GestureDetector(
+              onTap: () {
+                scanQR();
+              },
+              child: Container(
+                height: 60,
+                width: 120,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(40.0),
+                  color: Color(0xFF6697BF),
+                ),
+                child: const Center(
+                  child: Text(
+                    "SCAN QRCODE",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
+            SizedBox(
+              height: 15,
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => const SplashScreen()),
+                );
+              },
+              child: Container(
+                height: 60,
+                width: 120,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(40.0),
+                  color: Color.fromARGB(255, 153, 200, 238),
+                ),
+                child: const Center(
+                  child: Text(
+                    "Location",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
